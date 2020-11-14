@@ -10,6 +10,7 @@ import java.util.List;
  */
 @Data
 public class PageDTO<T> {
+//    前台一般需要的是List 和总条数  至于总页数的话可以计算的出
     private Long total;// 总条数
     private Long totalPage;// 总页数
     private List<T> items;// 当前页数据

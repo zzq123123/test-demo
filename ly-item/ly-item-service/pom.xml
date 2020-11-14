@@ -11,6 +11,12 @@
 
     <artifactId>ly-item-service</artifactId>
     <dependencies>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+
+
         <!--ly-common 包合并-->
         <dependency>
             <groupId>com.leyou</groupId>

@@ -5,7 +5,7 @@ spring:
     name: item-service
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://ly-mysql:3306/heima?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false
+    url: jdbc:mysql://ly-mysql:3306/ly-dev?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false
     username: root
     password: root
 eureka:
@@ -14,4 +14,16 @@ eureka:
       defaultZone: http://ly-registry:10086/eureka
 logging:
   level:
-    com.leyou: debug
+    com.leyou: debug  #在这个tomcat中 日志级别是debug 高级别不会打印低级别
+    #这里意思就是所有日志都会打印 级别从高到底
+    #fatal error warn info debug   联调的时候设置最低 上线之后设置成 error (info)
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  type-aliases-package: com.leyou.item.entity
+#  mapper-locations: classpath*: mappers/*.xml
+  global-config:
+    db-config:
+      id-type: auto
+      update-strategy: not_null
+      insert-strategy: not_null

@@ -13,6 +13,7 @@ public class FallbackController {
      * 默认的超时处理逻辑
      * @return 超时提醒
      */
+//    后端这里代表的是工程名 前段是端口号
     @RequestMapping(value = "/hystrix/fallback")
     public ResponseEntity<String> fallBackController() {
         return ResponseEntity.status(HttpStatus.GATEWAY_TIMEOUT).body("请求超时！");

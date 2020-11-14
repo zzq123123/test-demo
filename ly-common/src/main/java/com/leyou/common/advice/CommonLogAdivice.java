@@ -22,7 +22,7 @@ import java.util.Arrays;
 @Component //放入到容器中
 public class CommonLogAdivice {
 //   注解的全类名  任意类 任意方法 都会被击中
-    @Around("within(@org.springframework.stereotype.Service *)") //目标方法的策略是环绕
+@Around("within(@org.springframework.stereotype.Service *) || within(com.baomidou.mybatisplus.extension.service.IService+)") //目标方法的策略是环绕 打击 Iservice的子类
     public Object handleExceptionLog(ProceedingJoinPoint jp) throws Throwable{
         try {
 
