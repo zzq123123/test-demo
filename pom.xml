@@ -13,6 +13,7 @@
         <module>ly-registry</module>
         <module>ly-item</module>
         <module>ly-common</module>
+        <module>ly-auth</module>
     </modules>
 
     <packaging>pom</packaging>

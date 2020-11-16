@@ -32,6 +32,10 @@ spring:
         uri: lb://item-service  #去注册中心去找Ip 这个不是容器名字 这个是注册中心的模块名字
         predicates:
         - Path=/item/**  #只要上下文路径后面带有item 被击中
+      - id: auth-service # 商品微服务
+        uri: lb://auth-service  #去注册中心去找Ip 这个不是容器名字 这个是注册中心的模块名字
+        predicates:
+        - Path=/auth/**  #只要上下文路径后面带有item 被击中
       globalcors: # 全局的跨域处理
         add-to-simple-url-handler-mapping: true # 是否将当前cors配置加入到SimpleUrlHandlerMapping中，解决options请求被拦截问题
         corsConfigurations:

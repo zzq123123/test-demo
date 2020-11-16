@@ -7,6 +7,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="llll" />
+        <module name="ly-auth-api" />
+        <module name="ly-auth-pojo" />
+        <module name="ly-auth-service" />
         <module name="ly-common" />
         <module name="ly-gateway" />
         <module name="ly-item-api" />
