@@ -8,6 +8,8 @@ spring:
     url: jdbc:mysql://ly-mysql:3306/ly-dev?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false
     username: root
     password: root
+  jackson:
+    default-property-inclusion: non_null
 eureka:
   client:
     service-url:
@@ -27,3 +29,5 @@ mybatis-plus:
       id-type: auto
       update-strategy: not_null
       insert-strategy: not_null
+
+
