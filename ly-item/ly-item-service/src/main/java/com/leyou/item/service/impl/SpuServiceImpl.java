@@ -61,14 +61,12 @@ public class SpuServiceImpl extends ServiceImpl<SpuMapper, Spu> implements SpuSe
         }
         return null;
     }
-
     private void handleCategoryAndBrandName(SpuDTO spuDTO) {
         // 根据品牌id查询品牌名称
 
         Brand brand = brandService.getById(spuDTO.getBrandId());//根据id去品牌表中去查
         if (brand!=null) {
             spuDTO.setBrandName(brand.getName());
-
         }
         // 根据三级分类id查询分类集合
         List<Category> categories = categoryService.listByIds(spuDTO.getCategoryIds());
