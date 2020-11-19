@@ -2,27 +2,104 @@ package com.leyou.item.web;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.leyou.item.dto.QuerySpuByPageDTO;
+import com.leyou.item.dto.SkuDTO;
 import com.leyou.item.dto.SpuDTO;
+import com.leyou.item.dto.SpuDetailDTO;
+import com.leyou.item.entity.Sku;
+import com.leyou.item.entity.Spu;
 import com.leyou.item.service.SkuService;
 import com.leyou.item.service.SpuDetailService;
 import com.leyou.item.service.SpuService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.util.List;
+
 @RestController
 @RequestMapping("goods")
 public class GoodsController {
     private final SpuService spuService;
     private final SpuDetailService detailService;
     private final SkuService skuService;
+
     public GoodsController(SpuService SpuService, SpuDetailService detailService, SkuService skuService) {
         this.spuService = SpuService;
         this.detailService = detailService;
         this.skuService = skuService;
     }
+
     @GetMapping("/spu/page")  //校验  并且打印web层日志 最后被统一异常管理
-    public ResponseEntity<Page<SpuDTO>> querySpuByPage(@Valid QuerySpuByPageDTO querySpuByPageDTO, Errors errors){
+    public ResponseEntity<Page<SpuDTO>> querySpuByPage(@Valid QuerySpuByPageDTO querySpuByPageDTO, Errors errors) {
         return ResponseEntity.ok(spuService.querySpecByPage(querySpuByPageDTO));
     }
+
+    /**
+     * 新增商品
+     *
+     * @param spuDTO 页面提交商品信息
+     * @return 无
+     */
+
+
+    @PostMapping("spu")
+    public ResponseEntity<Void> saveGoods(@RequestBody SpuDTO spuDTO) { //商品
+        spuService.saveGoods(spuDTO);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+
+    /**
+     * @param spuId
+     * @param saleable 上下架
+     */
+    @PutMapping("/saleable")
+    public ResponseEntity<Void> updateSaleble(@RequestParam("id") Long spuId, @RequestParam("saleable") Boolean saleable) {
+
+        spuService.updateSaleble(spuId, saleable);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<SpuDTO> queryGoodsById(@PathVariable("id") Long id) {
+        SpuDTO spuDTO = spuService.queryGoodsById(id);
+
+        return ResponseEntity.ok(spuDTO);
+    }
+
+
+    @PutMapping
+    public ResponseEntity<Void> updateGoods(@RequestBody SpuDTO spuDTO) { //商品
+        spuService.updateGoods(spuDTO);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+
+    @GetMapping("/spu/detail")
+    public ResponseEntity<SpuDetailDTO> queryDetailBySpuId(@RequestParam("id") Long spuId) {
+        SpuDetailDTO spuDetailDTO = detailService.queryDetailBySpuId(spuId);
+        return ResponseEntity.ok(spuDetailDTO);
+    }
+
+    @GetMapping("/sku/of/spu")
+    public ResponseEntity<List<SkuDTO>> querySkuBySpuId(@RequestParam("id") Long spuId) {
+        List<SkuDTO> skuDTOS = skuService.querySkuBySpuId(spuId);
+        return ResponseEntity.ok(skuDTOS);
+    }
+    @GetMapping("/sku/list")
+    public ResponseEntity<List<SkuDTO>> querySkuByIds(@RequestParam("ids") List<Long> ids){
+        List<Sku> skuList = skuService.listByIds(ids);
+        List<SkuDTO> skuDTOS = SkuDTO.convertEntityList(skuList);
+        return ResponseEntity.ok(skuDTOS);
+    }
+        //根据id 查商品Spu
+
+    @GetMapping("/spu/{id}")
+    public ResponseEntity<SpuDTO> querySpuById(@PathVariable("id")Long id ){
+        Spu spu = spuService.getById(id);
+        return ResponseEntity.ok(new SpuDTO(spu));
+    }
+
 }

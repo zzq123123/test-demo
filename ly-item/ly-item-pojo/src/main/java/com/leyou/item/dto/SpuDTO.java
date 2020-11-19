@@ -41,6 +41,7 @@ public class SpuDTO extends BaseDTO {
      * 方便同时获取3级分类
      * @return 3级分类的id集合
      */
+
     @JsonIgnore  //序列化时候会忽略掉 说明序列化是基于get方法的
     public List<Long> getCategoryIds(){
         return Arrays.asList(cid1, cid2, cid3);
