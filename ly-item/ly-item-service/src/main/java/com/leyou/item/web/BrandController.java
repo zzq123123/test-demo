@@ -41,7 +41,12 @@ public class BrandController {
       return   ResponseEntity.ok(brandService.queryBrandByPage(key, page, rows));
     }
 
-    @GetMapping("/brand/of.categpry")
+    /**
+     * 根据分类id查询到品牌
+     * @param id
+     * @return
+     */
+    @GetMapping("/brand/of/categpry")
     public ResponseEntity<List<BrandDTO>> queryBrandBycategory(@RequestParam("id") Long id) {
         return ResponseEntity.ok(brandService.queryBrandBycategory(id));//成功有内容
     }
@@ -61,11 +66,10 @@ public class BrandController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> m(@PathVariable("id") Long brandId){
-    //先删除外键行
-        categoryBrandService.remove(new QueryWrapper<CategoryBrand>().eq("brand_id", brandId));
-        //再删除主键行
-        brandService.removeById(brandId);
+    public ResponseEntity<Void> remove(@PathVariable("id") Long brandId){
+
+        categoryBrandService.removeBrand(brandId);
+
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); //成功没内容
     }
 }

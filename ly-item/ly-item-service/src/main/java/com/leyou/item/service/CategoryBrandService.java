@@ -11,5 +11,6 @@ import com.leyou.item.entity.CategoryBrand;
  * Modified By:
  */
 public interface CategoryBrandService extends IService<CategoryBrand> {
+    void removeBrand(Long brandId);
     //这里有各种增删改查的方法
 }
