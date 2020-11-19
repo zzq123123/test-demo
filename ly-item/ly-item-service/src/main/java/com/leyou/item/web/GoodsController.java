@@ -1,15 +1,14 @@
 package com.leyou.item.web;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.leyou.item.dto.QuerySpuByPageDTO;
-import com.leyou.item.dto.SkuDTO;
-import com.leyou.item.dto.SpuDTO;
-import com.leyou.item.dto.SpuDetailDTO;
+import com.leyou.item.dto.*;
 import com.leyou.item.entity.Sku;
 import com.leyou.item.entity.Spu;
 import com.leyou.item.service.SkuService;
+import com.leyou.item.service.SpecParamService;
 import com.leyou.item.service.SpuDetailService;
 import com.leyou.item.service.SpuService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -20,6 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("goods")
 public class GoodsController {
+
     private final SpuService spuService;
     private final SpuDetailService detailService;
     private final SkuService skuService;
@@ -28,7 +28,13 @@ public class GoodsController {
         this.spuService = SpuService;
         this.detailService = detailService;
         this.skuService = skuService;
+
+
     }
+
+@Autowired
+    private SpecParamService specParamService;
+
 
     @GetMapping("/spu/page")  //校验  并且打印web层日志 最后被统一异常管理
     public ResponseEntity<Page<SpuDTO>> querySpuByPage(@Valid QuerySpuByPageDTO querySpuByPageDTO, Errors errors) {
@@ -101,5 +107,17 @@ public class GoodsController {
         Spu spu = spuService.getById(id);
         return ResponseEntity.ok(new SpuDTO(spu));
     }
+
+    /**
+     * 参数键值对
+     * @return
+     */
+    @GetMapping("/spec/value")
+    public ResponseEntity<List<SpecParamDTO>> querySpecsValues(
+            @RequestParam("id") Long id, @RequestParam(value = "searching", required = false) Boolean searching){//可以不传
+        return ResponseEntity.ok(detailService.querySpecValues(id, searching));
+    }
+
+
 
 }

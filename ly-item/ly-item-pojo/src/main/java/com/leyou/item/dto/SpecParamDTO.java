@@ -32,11 +32,10 @@ public class SpecParamDTO extends BaseDTO {
     private Boolean searching;
     private String segments;
     private String options;
-
+    private Object value;
     public SpecParamDTO(BaseEntity baseEntity) {
         super(baseEntity);
     }
-
     public static <T extends BaseEntity> List<SpecParamDTO> convertEntityList(Collection<T> list) {
         if (list == null) {
             return Collections.emptyList();
