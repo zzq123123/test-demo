@@ -1,0 +1,21 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: auth-service
+eureka:
+  client:
+    service-url:
+      defaultZone: http://ly-registry:10086/eureka
+logging:
+  level:
+    com.leyou: debug
+ly:
+  oss:
+    accessKeyId: LTAI4GE4ooPdyEQxAAF5Fg3U
+    accessKeySecret: ynK8M1BJaOxFNsgSKnZto9eogoN5vp
+    host: http://112-cz.oss-cn-shanghai.aliyuncs.com # 访问oss的bucket的域名112-cz.oss-cn-shanghai.aliyuncs.com
+    endpoint: oss-cn-shanghai.aliyuncs.com    #你选择的oss服务器的地址oss-cn-shanghai.aliyuncs.com
+    dir: "heima01" # 保存到bucket的某个子目录
+    expireTime: 1200000 # 过期时间，单位是ms
+    maxFileSize: 5242880 #文件大小限制，这里是5M
