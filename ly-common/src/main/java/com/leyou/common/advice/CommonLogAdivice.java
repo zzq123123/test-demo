@@ -43,7 +43,7 @@ import java.lang.annotation.Target;
  * Modified By:
  */
 @Slf4j
-@Aspect //这个就是切面了 基础是动态代理  这个切面中存在着打击点和目标方法的关系
+@Aspect //这个就是切面 基础是动态代理  这个切面中存在着目标方法和通知方法的关系 切面被代理方法包住
 @Component //放入到容器中
 public class CommonLogAdivice {
     private ObjectMapper objectMapper = new ObjectMapper();
@@ -117,7 +117,8 @@ public class CommonLogAdivice {
             return proceed;
         } catch (Throwable throwable) {
             if (throwable instanceof LyException) {
-                throw throwable;//如果不是自定义异常直接抛给你html页面 不会是json
+                throw throwable;//handler处理方法 抛出异常  会被异常处理方法继续处理抛出异常   然后会被异常处理器接收到  异常 处理器根据你的accept信息来 选择html返回还是json返回 (异常有状态码  体数据)得到 modelandview(view name error)  然后让 viewresolver去解析mv得到view然后渲染数据把异常对象变成html字符串返回到客户端  默认异常处理器 ResponseStatusExceptionResolver(这个是处理自定义异常的)  DefaultHandlerExceptionResolver(处理非自定义异常) viewname 没有直接返回到浏览器不需要渲染数据了  如果sping-mvc.xml里面配置了异常处理器那么默认的全部失效 用你自己配置的 这里自定义的异常所以系统用ResponseStatusExceptionResolver来处理我们的异常 得到mv 没有异常也会得到mv
+
             } else {
                 //我们也要保证统一处理
                 throw new LyException(500, throwable);

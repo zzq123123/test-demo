@@ -36,6 +36,10 @@ spring:
         uri: lb://auth-service  #去注册中心去找Ip 这个不是容器名字 这个是注册中心的模块名字
         predicates:
         - Path=/auth/**  #只要上下文路径后面带有item 被击中
+      - id: search-service # 搜索服务 这个无所谓 起个名字
+        uri: lb://search-service   #这是eureka里面的数组名
+        predicates:
+        - Path=/search/**   #只要上下文路径后面带有search被击中
       globalcors: # 全局的跨域处理
         add-to-simple-url-handler-mapping: true # 是否将当前cors配置加入到SimpleUrlHandlerMapping中，解决options请求被拦截问题
         corsConfigurations:
