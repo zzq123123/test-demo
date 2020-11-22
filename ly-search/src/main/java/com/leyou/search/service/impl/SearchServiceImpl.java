@@ -1,24 +1,33 @@
 package com.leyou.search.service.impl;
 
 import com.leyou.common.dto.PageDTO;
+import com.leyou.common.exception.LyException;
 import com.leyou.item.client.ItemClient;
 import com.leyou.item.dto.SkuDTO;
 import com.leyou.item.dto.SpecParamDTO;
 import com.leyou.item.dto.SpuDTO;
+import com.leyou.search.dto.SearchParamDTO;
 import com.leyou.search.entity.Goods;
 import com.leyou.search.repository.GoodsRepository;
 import com.leyou.search.service.SearchService;
+import com.leyou.starter.elastic.dto.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 import javax.annotation.Resource;
-import javax.security.auth.login.LoginContext;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.leyou.search.constants.SearchConstants.*;
 
 /**
  * @author 虎哥
@@ -237,6 +246,42 @@ public class SearchServiceImpl implements SearchService {
         return result;
     }
 
+    @Override
+    public Mono<List<String>> getSUggestion(String keyPrefix) {
+        if (StringUtils.isBlank(keyPrefix)) {
+            throw new LyException(400, "请求参数不能为空");
+
+        }
+        return goodsRepository.suggestBySingleField(SUGGESTION_FIELD,keyPrefix);
+    }
+
+    @Override
+    public Mono<PageInfo<Goods>> searchGoods(SearchParamDTO param) {
+        //1.构建条件查询的工厂对象
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+        // 1.1.source过滤
+        sourceBuilder.fetchSource(DEFAULT_SOURCE_FIELD, new String[0]);
+        // 1.2.查询条件
+        String key = param.getKey();
+        if (StringUtils.isBlank(key)) {
+            // 搜索条件为null，返回异常
+            throw new LyException(400, "搜索条件不能为空！");
+        }
+        sourceBuilder.query(QueryBuilders.matchQuery(DEFAULT_SEARCH_FIELD, key));
+        // 1.3.分页条件
+        sourceBuilder.from(param.getFrom());
+        sourceBuilder.size(param.getSize());
+        // 1.4.排序条件
+        if(StringUtils.isNotBlank(param.getSortBy())){
+            // 排序字段存在，才去排序
+            sourceBuilder.sort(param.getSortBy(), param.getDesc() ? SortOrder.DESC: SortOrder.ASC);
+        }
+
+        // 1.5.高亮条件
+        sourceBuilder.highlighter(new HighlightBuilder().field(DEFAULT_SEARCH_FIELD)
+                .preTags(DEFAULT_PRE_TAG).postTags(DEFAULT_POST_TAG));
+        return goodsRepository.queryBySourceBuilderForPageHighlight(sourceBuilder);
+    }
 
     private double parseDouble(String str) {
         try {

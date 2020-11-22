@@ -1,12 +1,15 @@
 package com.leyou.search.web;
 
+import com.leyou.search.dto.SearchParamDTO;
+import com.leyou.search.entity.Goods;
 import com.leyou.search.service.SearchService;
+import com.leyou.starter.elastic.dto.PageInfo;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Package: com.leyou.search.web
@@ -32,6 +35,18 @@ public class SearchController {
     }
 
 
-
+    @GetMapping("/suggestion")
+    public Mono<List<String>> getSuggestion(@RequestParam("key") String key) {
+        return searchService.getSUggestion(key);
+    }
+    /**
+     * 分页搜索商品数据
+     * @param request 请求参数
+     * @return 分页结果
+     */
+    @PostMapping("/list")
+    public Mono<PageInfo<Goods>> searchGoods(@RequestBody SearchParamDTO request) {
+        return searchService.searchGoods(request);
+    }
 
 }
