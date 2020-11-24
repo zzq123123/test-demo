@@ -3,6 +3,7 @@ package com.leyou.search.service.impl;
 import com.leyou.common.dto.PageDTO;
 import com.leyou.common.exception.LyException;
 import com.leyou.item.client.ItemClient;
+import com.leyou.item.dto.QuerySpuByPageDTO;
 import com.leyou.item.dto.SkuDTO;
 import com.leyou.item.dto.SpecParamDTO;
 import com.leyou.item.dto.SpuDTO;
@@ -32,12 +33,12 @@ import static com.leyou.search.constants.SearchConstants.*;
 /**
  * @author 虎哥
  */
+
 @Slf4j
 @Service
 public class SearchServiceImpl implements SearchService {
     @Resource
    private GoodsRepository goodsRepository;
-
 
     @Resource
     private ItemClient itemClient;  // 直接赋值 构造器赋值 非静态代码块赋值
@@ -121,8 +122,17 @@ public class SearchServiceImpl implements SearchService {
         int page = 1, rows = 100;
         while (true) {
             log.info("开始导入第{}页数据",page);
-            // 分页查询已经上架的spu
-            PageDTO<SpuDTO> result = itemClient.querySpuByPage(page, rows, true, null, null, null); //通过eureka 来调用item的api返回结果
+            // 分页查询已经上架的spu            page, rows, true, null, null, null
+
+            QuerySpuByPageDTO querySpuByPageDTO = new QuerySpuByPageDTO();
+            querySpuByPageDTO.setPage(page);
+            querySpuByPageDTO.setRows(rows);
+            querySpuByPageDTO.setSaleable(true); //是否上下架
+            querySpuByPageDTO.setId(null);
+            querySpuByPageDTO.setBrandId(null);
+            querySpuByPageDTO.setCategoryId(null);
+
+            PageDTO<SpuDTO> result = itemClient.querySpuByPage(querySpuByPageDTO); //通过eureka 来调用item的api返回结果
             List<SpuDTO> list = result.getItems(); //获取当前页面的数据
             // 遍历Spu集合，把SpuDTO通过buildGoods方法转为Goods
             List<Goods> goodsList = list.stream().map(this::buildGoods).collect(Collectors.toList()); //spudto 变成goods
@@ -172,11 +182,6 @@ public class SearchServiceImpl implements SearchService {
                 map.put("value", chooseSegment(param));
                 specs.add(map);
             }
-
-
-
-
-
             // 创建Goods对象，并封装数据
 
             Goods goods = new Goods();
@@ -209,9 +214,6 @@ public class SearchServiceImpl implements SearchService {
         if (value == null || StringUtils.isBlank(value.toString())) {
             return "其它";
         }
-
-
-
         if(!p.getNumeric() || StringUtils.isBlank(p.getSegments()) || value instanceof Collection){
             return value;
         }  //不是数字 没段  非单个  把字符串返回

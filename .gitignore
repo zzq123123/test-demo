@@ -1,32 +1,32 @@
-## hack for graddle wrapper
-!wrapper/*.jar
-!**/wrapper/*.jar
-.gitignore
-.idea/workspace.xml
-llll/src/
-ly-common/src/main/java/com/leyou/common/entity/Category.java
-ly-common/src/main/resources/
-ly-common/src/test/
-ly-common/target/
-ly-gateway/src/test/
-ly-gateway/target/
-ly-item/ly-item-api/src/
-ly-item/ly-item-pojo/src/main/resources/
-ly-item/ly-item-pojo/src/test/
-ly-item/ly-item-pojo/target/
-ly-item/ly-item-service/src/main/java/com/leyou/item/config/
-ly-item/ly-item-service/src/test/
-ly-item/ly-item-service/target/
-ly-registry/src/test/
-ly-registry/target/
-.idea/uiDesigner.xml
-ly-auth/ly-auth-api/ly-auth-api.iml
-ly-auth/ly-auth-api/src/
-ly-auth/ly-auth-pojo/src/main/resources/
-ly-auth/ly-auth-pojo/src/test/
-ly-auth/ly-auth-pojo/target/
-ly-auth/ly-auth-service/ly-auth-service.iml
-ly-auth/ly-auth-service/src/test/
-ly-auth/ly-auth-service/target/
-ly-auth/ly-auth.iml
-ly-auth/src/
+# Compiled class file
+*.class
+
+# Log file
+*.log
+*.imi
+*.lst
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml 
+hs_err_pid*
+
+.idea
+*.iml
+.settings/
+.project
+.classpath
+target/
+logs/

@@ -12,12 +12,10 @@
     <artifactId>ly-item-api</artifactId>
 
     <dependencies>
-        <!--feign的starter-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
-        <!--pojo-->
         <dependency>
             <groupId>com.leyou</groupId>
             <artifactId>ly-item-pojo</artifactId>

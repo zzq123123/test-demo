@@ -22,7 +22,7 @@ import java.util.List;
 @RequestMapping("goods")
 public class SearchController {
 @Resource
-    private   SearchService searchService;
+    private SearchService searchService;
 
     /**
      * 初始化索引库
@@ -37,6 +37,7 @@ public class SearchController {
 
     @GetMapping("/suggestion")
     public Mono<List<String>> getSuggestion(@RequestParam("key") String key) {
+        System.out.println("我被执行");
         return searchService.getSUggestion(key);
     }
     /**

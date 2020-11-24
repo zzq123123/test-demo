@@ -1,6 +1,7 @@
 package com.leyou.item.service.impl;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.leyou.common.dto.PageDTO;
 import com.leyou.common.entity.Category;
 import com.leyou.common.exception.LyException;
 import com.leyou.item.dto.QuerySpuByPageDTO;
@@ -33,7 +34,7 @@ public class SpuServiceImpl extends ServiceImpl<SpuMapper, Spu> implements SpuSe
     @Autowired
     SpuDetailService detailservice;
     @Override
-    public Page<SpuDTO> querySpecByPage(QuerySpuByPageDTO querySpuByPageDTO) {
+    public  PageDTO<SpuDTO>  querySpecByPage(QuerySpuByPageDTO querySpuByPageDTO) {
         Long brandId = querySpuByPageDTO.getBrandId();
         Boolean saleable = querySpuByPageDTO.getSaleable();
         Long categoryId = querySpuByPageDTO.getCategoryId();
@@ -55,7 +56,8 @@ public class SpuServiceImpl extends ServiceImpl<SpuMapper, Spu> implements SpuSe
             handleCategoryAndBrandName(spuDTO);
 
         }
-        return null;
+//        return new PageDTO<>(result.getTotal(), result.getPages(), dtoList);
+        return new PageDTO<SpuDTO>(result.getTotal(), result.getPages(), dtoList);
     }
     private void handleCategoryAndBrandName(SpuDTO spuDTO) {
         // 根据品牌id查询品牌名称

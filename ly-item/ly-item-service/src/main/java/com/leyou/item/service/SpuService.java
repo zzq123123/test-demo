@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author 虎哥
  */
 public interface SpuService extends IService<Spu> {
-    Page<SpuDTO> querySpecByPage(QuerySpuByPageDTO querySpuByPageDTO);
+    PageDTO<SpuDTO>  querySpecByPage(QuerySpuByPageDTO querySpuByPageDTO);
 
     void saveGoods(SpuDTO spuDTO);
 

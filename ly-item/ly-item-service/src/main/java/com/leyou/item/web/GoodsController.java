@@ -1,6 +1,7 @@
 package com.leyou.item.web;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.leyou.common.dto.PageDTO;
 import com.leyou.item.dto.*;
 import com.leyou.item.entity.Sku;
 import com.leyou.item.entity.Spu;
@@ -37,7 +38,7 @@ public class GoodsController {
 
 
     @GetMapping("/spu/page")  //校验  并且打印web层日志 最后被统一异常管理
-    public ResponseEntity<Page<SpuDTO>> querySpuByPage(@Valid QuerySpuByPageDTO querySpuByPageDTO, Errors errors) {
+    public ResponseEntity<PageDTO<SpuDTO>> querySpuByPage(@Valid QuerySpuByPageDTO querySpuByPageDTO, Errors errors) {
         return ResponseEntity.ok(spuService.querySpecByPage(querySpuByPageDTO));
     }
 

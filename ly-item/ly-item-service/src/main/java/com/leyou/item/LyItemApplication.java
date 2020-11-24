@@ -1,5 +1,4 @@
 package com.leyou.item;
-
 import com.leyou.common.annotation.EnableExceptionAdvice;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
