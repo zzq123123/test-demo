@@ -2,17 +2,15 @@ package com.leyou.search.entity;
 
 import com.leyou.starter.elastic.annotaions.Id;
 import com.leyou.starter.elastic.annotaions.Index;
-
 import lombok.Data;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 /**
  * @author 虎哥
  */
+
 @Data
 @Index("goods")
 public class Goods {

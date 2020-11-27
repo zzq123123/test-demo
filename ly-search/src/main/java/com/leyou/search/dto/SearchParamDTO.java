@@ -8,7 +8,7 @@ import java.util.Map;
  */
 public class SearchParamDTO {
     /**
-     * 每页大小，不从页面接收，而是固定大小
+     * 每页大小，不从页面接收，而是固定大小 多少行
      */
     private static final Integer DEFAULT_SIZE = 20;
     /**
@@ -22,9 +22,9 @@ public class SearchParamDTO {
     /**
      * 搜索的关键字
      */
-    private String key;
+    private String key;  //建议查询的出来的小文档 去分词查询 基于 name 子标题 分类名 平排名 的超级长字符串带空格
     /**
-     * 当前页码
+     * 当前页码  可以被前台修改的
      */
     private Integer page = DEFAULT_PAGE;
     /**

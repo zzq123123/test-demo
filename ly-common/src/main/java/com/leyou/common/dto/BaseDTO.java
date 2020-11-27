@@ -18,7 +18,7 @@ public abstract class BaseDTO {
      * @param <T> PO对象的类型
      * @return PO对象
      */
-//    dto 真实对象 调用这个非静态方法 就会转换成功
+//
     public <T> T toEntity(Class<T> entityClass) {
         return BeanHelper.copyProperties(this, entityClass);
     }

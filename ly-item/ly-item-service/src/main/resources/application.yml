@@ -10,6 +10,16 @@ spring:
     password: root
   jackson:
     default-property-inclusion: non_null   #序列化的时候null就不显示了
+  rabbitmq:
+    host: ly-mq
+    username: guest
+    password: guest
+    virtual-host: /
+    publisher-confirms: true #开启生产者确认 发送消息会重试
+    template:
+      retry:
+        enabled: true #开启失败重试功能
+
 eureka:
   client:
     service-url:

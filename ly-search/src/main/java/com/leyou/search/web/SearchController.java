@@ -10,6 +10,7 @@ import reactor.core.publisher.Mono;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Package: com.leyou.search.web
@@ -38,16 +39,27 @@ public class SearchController {
     @GetMapping("/suggestion")
     public Mono<List<String>> getSuggestion(@RequestParam("key") String key) {
         System.out.println("我被执行");
-        return searchService.getSUggestion(key);
+        return searchService.getSUggestion(key);  //异步调用
     }
     /**
      * 分页搜索商品数据
      * @param request 请求参数
      * @return 分页结果
      */
+    //分词查询
     @PostMapping("/list")
     public Mono<PageInfo<Goods>> searchGoods(@RequestBody SearchParamDTO request) {
         return searchService.searchGoods(request);
+    }
+
+    /**
+     * 查询顶部过滤项
+     * @param request
+     * @return
+     */
+    @PostMapping("/filter")
+    public Mono<Map<String,List<?>>> getFilterList(@RequestBody SearchParamDTO request) {
+        return searchService.getFilterList(request);
     }
 
 }

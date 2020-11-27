@@ -13,6 +13,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients(basePackages = "com.leyou.item.client" )
 @SpringBootApplication
 @EnableExceptionAdvice
+
 public class  sApplication {
 
     public static void main(String[] args) {

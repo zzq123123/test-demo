@@ -2,6 +2,7 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/itcast-elasticsearch-test" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/llll" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ly-auth" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ly-auth/ly-auth-api" charset="UTF-8" />

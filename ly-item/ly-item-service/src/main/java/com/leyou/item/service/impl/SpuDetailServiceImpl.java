@@ -53,8 +53,8 @@ public class SpuDetailServiceImpl extends ServiceImpl<SpuDetailMapper, SpuDetail
         List<SpecParamDTO> params = paramService.queryParams(spu.getCid3(), null, searching);
         // 3.找到param的value，并存储
         for (SpecParamDTO param : params) {
-            param.setValue(specValues.get(param.getId()));
-
+            param.setValue(specValues.get(param.getId())); //spu对应的分类下的spec的集合的每个对象分别
+            //用id去spu对应的map中去取值赋值给spu 对应的分类下的 spec得每个对象的value 能对应上
         }
         return params;
     }

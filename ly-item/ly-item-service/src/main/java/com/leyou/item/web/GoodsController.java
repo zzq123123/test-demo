@@ -59,7 +59,7 @@ public class GoodsController {
 
     /**
      * @param spuId
-     * @param saleable 上下架
+     * @param saleable 上下架  核心逻辑是 新增 商品肯定是下架    想要修改修改和删除必须先下架
      */
     @PutMapping("/saleable")
     public ResponseEntity<Void> updateSaleble(@RequestParam("id") Long spuId, @RequestParam("saleable") Boolean saleable) {

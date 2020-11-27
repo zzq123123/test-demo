@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor()
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
+//封装查询条件
 public class QuerySpuByPageDTO extends BaseDTO {
     @Min(value = 1,message = "页数必须大于等于1")
     private Integer page=1; //默认就是1

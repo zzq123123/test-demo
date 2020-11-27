@@ -37,14 +37,13 @@ public class BrandServiceImpl extends ServiceImpl<BrandMapper, Brand> implements
         Page<Brand> info = new Page<>(page, rows);
         //判断key是否存在
         boolean isKeyExists = StringUtils.isNoneBlank(key);
-        Page<Brand> page1 = this.query().like(isKeyExists, "name", key)
+       this.query().like(isKeyExists, "name", key)
                 .or()
                 .eq(isKeyExists, "letter", key)
                 .page(info);// limit
         //对象里面 的[] 里面放上BrandDTO就好了
         return new PageDTO<>(info.getTotal(),info.getPages(), BrandDTO.convertEntityList(info.getRecords()));//[-] -> [~]
     }
-
     @Override
     public List<BrandDTO> queryBrandBycategory(Long id) {
         List<Brand> brands = this.baseMapper.queryBycategoryId(id);
@@ -65,8 +64,6 @@ public class BrandServiceImpl extends ServiceImpl<BrandMapper, Brand> implements
         }).collect(Collectors.toList());
         boolean b = categoryBrandService.saveBatch(categoryBrands);
     }
-
-
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void updateBrand(BrandDTO brandDTO) {
@@ -77,20 +74,14 @@ public class BrandServiceImpl extends ServiceImpl<BrandMapper, Brand> implements
             throw new LyException(500,"更新品牌失败");
         }
         //根据品牌id来删除中间表数据
-
-
           b = categoryBrandService.remove(new QueryWrapper<CategoryBrand>().eq("brand_id", brandDTO.getId()));
         if (b==false) {
             throw new LyException(500, "更新品牌失败,删除中间表失败");
         }
-
         //重新插入中间表数据
-
         List<CategoryBrand> categoryBrands = brandDTO.getCategoryIds().stream().map(t -> {
             return CategoryBrand.of(t, brandDTO.getId());
         }).collect(Collectors.toList());
-
       categoryBrandService.saveBatch(categoryBrands);
-
     }
 }

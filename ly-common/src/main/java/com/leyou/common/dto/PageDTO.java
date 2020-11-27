@@ -1,7 +1,5 @@
 package com.leyou.common.dto;
-
 import lombok.Data;
-
 import java.util.List;
 
 /**
@@ -10,7 +8,7 @@ import java.util.List;
  */
 @Data
 public class PageDTO<T> {
-//    前台一般需要的是List 和总条数  至于总页数的话可以计算的出
+//    前台一般需要的是List 和总条数  至于总页数的话可以计算的出 当前第几页 和当前页面大小前段传来的
     private Long total;// 总条数
     private Long totalPage;// 总页数
     private List<T> items;// 当前页数据

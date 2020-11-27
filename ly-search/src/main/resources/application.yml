@@ -3,6 +3,13 @@ server:
 spring:
   application:
     name: search-service
+  rabbitmq:
+    host: ly-mq
+    username: guest
+    password: guest
+    virtual-host: /
+  jackson:
+    default-property-inclusion: non_null #对象序列化为json字符串的时候看到Null忽略
 eureka:
   client:
     service-url:

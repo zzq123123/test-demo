@@ -6,6 +6,7 @@ import com.leyou.starter.elastic.dto.PageInfo;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 虎哥
@@ -24,4 +25,10 @@ public interface SearchService {
     Mono<List<String>> getSUggestion(String key);
 
     Mono<PageInfo<Goods>> searchGoods(SearchParamDTO param);
+
+    Mono<Map<String, List<?>>> getFilterList(SearchParamDTO request );
+
+    void saveSpuById(Long spuId);
+
+    void deleteById(Long spuId);
 }

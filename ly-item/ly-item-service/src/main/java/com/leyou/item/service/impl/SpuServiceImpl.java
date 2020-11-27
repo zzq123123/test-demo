@@ -1,6 +1,7 @@
 package com.leyou.item.service.impl;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.leyou.common.constants.MQConstants;
 import com.leyou.common.dto.PageDTO;
 import com.leyou.common.entity.Category;
 import com.leyou.common.exception.LyException;
@@ -12,6 +13,7 @@ import com.leyou.item.entity.*;
 import com.leyou.item.mapper.SpuMapper;
 import com.leyou.item.service.*;
 import com.thoughtworks.xstream.core.util.ThreadSafeSimpleDateFormat;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
  import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -20,11 +22,18 @@ import org.springframework.util.CollectionUtils;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static com.leyou.common.constants.MQConstants.ExchangeConstants.ITEM_EXCHANGE_NAME;
+import static com.leyou.common.constants.MQConstants.RoutingKeyConstants.ITEM_DOWN_KEY;
+import static com.leyou.common.constants.MQConstants.RoutingKeyConstants.ITEM_UP_KEY;
+
 /**
  * @author 虎哥
  */
 @Service
 public class SpuServiceImpl extends ServiceImpl<SpuMapper, Spu> implements SpuService {
+    @Autowired
+    private AmqpTemplate amqpTemplate;
     @Autowired
     BrandService brandService;
     @Autowired
@@ -112,7 +121,17 @@ public class SpuServiceImpl extends ServiceImpl<SpuMapper, Spu> implements SpuSe
         }
 
         //update tb_sku p set p.saleable = 1 where p.sku_id =1
-        skuService.update().set("saleable", saleable).eq("sku_id", spuId);
+        success = skuService.update().set("saleable", saleable).eq("sku_id", spuId).update();
+        if (!success) {
+            throw new LyException(500, "上下架更新失败");
+        }
+
+
+        //发送 mq消息
+        String routingKey = saleable ? ITEM_UP_KEY : ITEM_DOWN_KEY;
+        amqpTemplate.convertAndSend(ITEM_EXCHANGE_NAME,routingKey,spuId);
+
+
     }
     @Transactional
     @Override
