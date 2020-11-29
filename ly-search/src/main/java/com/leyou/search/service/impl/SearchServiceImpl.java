@@ -125,6 +125,7 @@ public class SearchServiceImpl implements SearchService {
                 "}");
     }//没设置的自动就是long 数字类型
 //查询mysql放入到es
+
     @Override
     public void loadData() {
         int page = 1, rows = 100; // 分页查询不然Mysql会承受不起

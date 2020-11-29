@@ -27,7 +27,7 @@ public class BrandController {
     @Autowired
     private CategoryBrandService categoryBrandService;
     @GetMapping("/{id}")
-    public ResponseEntity<BrandDTO> queryBrandById(@RequestParam("id") Long id ){
+    public ResponseEntity<BrandDTO> queryBrandById(@PathVariable("id") Long id ){
         return ResponseEntity.ok(new BrandDTO(brandService.getById(id)));
     }
 

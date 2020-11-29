@@ -107,9 +107,9 @@ public class SpecController {//融合和specgroup specparam 二者接口相似(�
 
     // [ {  params: [ {} {} ]   ,  ,   } ,        ]
         
-    @GetMapping("list")
-    public ResponseEntity<List<SpecGroupDTO>> querySpecList(@RequestParam(value = "id",required = false) Long categoryId){
-        return ResponseEntity.ok(groupService.queryspecList(categoryId));
+    @GetMapping("/list")
+    public ResponseEntity<List<SpecGroupDTO>> querySpecList(@RequestParam("id") Long id){
+        return ResponseEntity.ok(groupService.queryspecList(id));
     }
 
 
