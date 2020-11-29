@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * @author 虎哥
  */
 @Configuration
+@EnableFeignClients(basePackages = "com.leyou.item.client" )
 public class FeignConfig {
 
     @Bean

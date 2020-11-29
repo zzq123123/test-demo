@@ -32,9 +32,7 @@ import org.springframework.context.annotation.Import;
  */
 @EnableExceptionAdvice
 @SpringBootApplication
-@EnableFeignClients("com.leyou.item.client")
-@Import(FeignConfig.class)
-public class LyPageApplication {
+ public class LyPageApplication {
     public static void main(String[] args) {
         SpringApplication.run(LyPageApplication.class, args);
     }

@@ -14,7 +14,6 @@
     <modules>
         <module>ly-user-pojo</module>
         <module>ly-user-api</module>
+        <module>ly-user-service</module>
     </modules>
-
-
 </project>

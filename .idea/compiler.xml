@@ -21,6 +21,7 @@
         <module name="ly-sms" />
         <module name="ly-user-api" />
         <module name="ly-user-pojo" />
+        <module name="ly-user-service" />
         <module name="lypage" />
       </profile>
     </annotationProcessing>
