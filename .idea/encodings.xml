@@ -18,6 +18,7 @@
     <file url="file://$PROJECT_DIR$/ly-registry" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ly-search" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ly-sms" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ly-trade" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ly-user" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ly-user/ly-user-api" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ly-user/ly-user-pojo" charset="UTF-8" />

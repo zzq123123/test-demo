@@ -1,6 +1,4 @@
 package com.leyou.auth.service.impl;
-
-import com.leyou.auth.constants.JwtConstants;
 import com.leyou.auth.dto.Payload;
 import com.leyou.auth.dto.UserDetails;
 import com.leyou.auth.service.UserAuthService;
