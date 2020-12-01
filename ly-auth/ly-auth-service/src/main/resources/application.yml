@@ -3,6 +3,20 @@ server:
 spring:
   application:
     name: auth-service
+  redis:
+    host: ly-redis
+  datasource:
+    url: jdbc:mysql://ly-mysql:3306/ly-dev?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+      insert-strategy: not_null
+      update-strategy: not_null
+  type-aliases-package: com.leyou.auth.entity
 eureka:
   client:
     service-url:
@@ -19,3 +33,5 @@ ly:
     dir: "heima01" # 保存到bucket的某个子目录
     expireTime: 1200000 # 过期时间，单位是ms
     maxFileSize: 5242880 #文件大小限制，这里是5M
+  jwt:
+    key: helloWorldJavaLeyouAuthServiceSecretKey # JWT的秘钥，不能泄露

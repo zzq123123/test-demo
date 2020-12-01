@@ -9,9 +9,13 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>ly-auth-service</artifactId>
-
     <dependencies>
-        <!--eureka起步依赖-->
+        <dependency>
+            <groupId>com.leyou</groupId>
+            <artifactId>ly-user-api</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <!--eureka起步依赖 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
@@ -37,6 +41,17 @@
             <groupId>com.leyou</groupId>
             <artifactId>ly-common</artifactId>
             <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
+        <!--mybatis-plus-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+        <!--mysql-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
         </dependency>
     </dependencies>
     <build>

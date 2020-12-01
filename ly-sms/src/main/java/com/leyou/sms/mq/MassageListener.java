@@ -55,8 +55,6 @@ public class MassageListener {
         if (!RegexUtils.isCodeValid(code)) {
             return;
         }
-
-
         //可能抛出异常
         smsUtil.sendVerifyCodeMessage(phone, code);
     }

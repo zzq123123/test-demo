@@ -1,18 +1,13 @@
 package com.leyou.sms.config;
 
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * Package: com.leyou.sms.config
- * Description：
- * Author: wude
- * Date:  2020-11-28 22:21
- * Modified By:
+ * @author 虎哥
  */
-@ConfigurationProperties(prefix = "ly.sms")
 @Data
+@ConfigurationProperties(prefix = "ly.sms")
 public class SmsProperties {
     /**
      * 账号

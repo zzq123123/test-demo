@@ -1,0 +1,62 @@
+{
+  "groups": [
+    {
+      "name": "ly.auth",
+      "type": "com.leyou.auth.config.ClientProperties",
+      "sourceType": "com.leyou.auth.config.ClientProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "ly.auth.clientId",
+      "type": "java.lang.String",
+      "sourceType": "com.leyou.auth.config.ClientProperties",
+      "description": "客户端的id，请咨询管理员"
+    },
+    {
+      "name": "ly.auth.secret",
+      "type": "java.lang.String",
+      "sourceType": "com.leyou.auth.config.ClientProperties",
+      "description": "客户端的秘钥，请咨询管理员"
+    },
+    {
+      "name": "ly.auth.includePathPatterns",
+      "type": "java.util.List",
+      "sourceType": "com.leyou.auth.config.ClientProperties",
+      "description": "需要拦截的路径"
+    },
+    {
+      "name": "ly.auth.excludePathPatterns",
+      "type": "java.util.List",
+      "sourceType": "com.leyou.auth.config.ClientProperties",
+      "description": "要放行的路径"
+    },
+    {
+      "name": "ly.auth.enable",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.leyou.auth.config.ClientProperties",
+      "description": "是否开启登录功能，默认为false"
+    },
+
+    {
+      "name": "ly.auth.includePathPatterns",
+      "type": "java.util.List",
+      "sourceType": "com.leyou.auth.config.ClientProperties",
+      "description": "拦截的路径"
+    },
+
+    {
+      "name": "ly.auth.excludePathPatterns",
+      "type": "java.util.List",
+      "sourceType": "com.leyou.auth.config.ClientProperties",
+      "description": "不包含的路径"
+    },
+
+    {
+      "name": "ly.auth.enable",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.leyou.auth.config.ClientProperties",
+      "description": "是否开启拦截"
+    }
+  ]
+}

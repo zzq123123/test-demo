@@ -34,6 +34,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.annotation.Target;
+import java.util.stream.Collectors;
 
 /**
  * Package: com.leyou.common.advice
@@ -102,12 +103,19 @@ public class CommonLogAdivice {
         } catch (JsonProcessingException e1) {
             e1.printStackTrace();
         }
-        if (errors != null && errors.hasErrors()) {
+     /*   if (errors != null && errors.hasErrors()) {
             List<ObjectError> errorList = errors.getAllErrors();
             StringBuilder sb = new StringBuilder();
             FieldError fieldError = (FieldError) errorList.get(0);
             sb.append(fieldError.getDefaultMessage());
             throw new LyException(400, sb.toString().trim());
+        }*/
+
+        if(errors != null &&errors.hasErrors()){
+            String msg = errors.getFieldErrors().stream()
+                    .map(FieldError::getDefaultMessage).collect(Collectors.joining("|"));
+            // 有错误
+            throw new LyException(400, "请求参数有误," + msg);
         }
 
         try {

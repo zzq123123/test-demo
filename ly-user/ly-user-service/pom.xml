@@ -10,8 +10,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>ly-user-service</artifactId>
+    <!--我需要被其他微服务调用我的服务 那么 我就要在我的兄弟工程中写上feignapi-->
 
     <dependencies>
+        <dependency>
+            <groupId>com.leyou</groupId>
+            <artifactId>ly-auth-api</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
         <!--web启动器-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -37,6 +43,16 @@
             <artifactId>ly-user-pojo</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>

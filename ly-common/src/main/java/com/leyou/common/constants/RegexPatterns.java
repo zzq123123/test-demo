@@ -20,11 +20,11 @@ public abstract class RegexPatterns {
      * 验证码正则, 6位数字或字母
      */
     public static final String VERIFY_CODE_REGEX = "^[a-zA-Z\\d]{6}$";
-	/**
+    /**
      * 订单编号正则, 20位数字
      */
     public static final String ORDER_ID_REGEX = "^[1-9]\\d{19}$";
-	/**
+    /**
      * 订单金额正则, 0~20位数字
      */
     public static final String ORDER_FEE_REGEX = "^\\d{1,20}$";

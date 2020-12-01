@@ -8,27 +8,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Package: com.leyou.sms.config
- * Description：
- * Author: wude
- * Date:  2020-11-28 22:22
- * Modified By:
+ * @author 虎哥
  */
 @Configuration
 @EnableConfigurationProperties(SmsProperties.class)
 public class SmsConfig {
 
-
     @Bean
-    public IAcsClient acsClient(SmsProperties prop) {
-        DefaultProfile profile = DefaultProfile.getProfile(prop.getRegionID(), prop.getAccessKeyID(), prop.getAccessKeySecret());
-        IAcsClient client = new DefaultAcsClient(profile);
-
-        return client;
+    public IAcsClient acsClient(SmsProperties prop){
+        DefaultProfile profile = DefaultProfile.getProfile(
+                prop.getRegionID(), prop.getAccessKeyID(), prop.getAccessKeySecret());
+        return new DefaultAcsClient(profile);
     }
-
-
-
-
-
 }

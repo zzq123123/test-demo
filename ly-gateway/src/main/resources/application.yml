@@ -41,9 +41,9 @@ spring:
         predicates:
         - Path=/search/**   #只要上下文路径后面带有search被击中
       - id: user-service # 用户服务
-          uri: lb://user-service
-          predicates:
-          - Path=/user/**
+        uri: lb://user-service
+        predicates:
+        - Path=/user/**
       globalcors: # 全局的跨域处理 gateway 和mvc配置类(xml)都可以解决跨域问题
         add-to-simple-url-handler-mapping: true # 是否将当前cors配置加入到SimpleUrlHandlerMapping中，解决options请求被拦截问题
         corsConfigurations:
@@ -60,15 +60,12 @@ spring:
             allowedHeaders: "*" # 允许在请求中携带的头信息
             allowCredentials: true # 是否允许携带cookie
             maxAge: 360000 # 这次跨域检测的有效期
-
   redis:
     host: ly-redis  #这个是容器名字
 logging:
   level:
     com.leyou: debug
-#spring:
-  #  application:
-  #    name: ly-gateway
-  #  cloud:
-  #    gateway:
-  #      default-filters: # 默认过滤项
+ly:
+  auth:
+    clientId: api-gateway
+    secret: 1234

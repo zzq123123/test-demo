@@ -10,7 +10,9 @@ import com.leyou.common.utils.JsonUtils;
 import com.leyou.sms.config.SmsProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.Map;
 
 import static com.leyou.sms.constants.SmsConstants.VERIFY_CODE_PARAM_TEMPLATE;
@@ -23,10 +25,11 @@ import static com.leyou.sms.constants.SmsConstants.VERIFY_CODE_PARAM_TEMPLATE;
  * Modified By:
  */
 @Slf4j
+@Component
 public class SmsUtil {
-    @Autowired
-    SmsProperties prop;
-    @Autowired
+    @Resource
+    SmsProperties smsProperties;
+    @Resource
     private IAcsClient acsClient;
 
     /**
@@ -37,9 +40,9 @@ public class SmsUtil {
      */
     public void sendVerifyCodeMessage(String phone, String code) {
         try {
-            sendMessage(phone, prop.getSignName(), prop.getVerifyCodeTemplate(), String.format(VERIFY_CODE_PARAM_TEMPLATE, code));
+            sendMessage(phone, smsProperties.getSignName(), smsProperties.getVerifyCodeTemplate(), String.format(VERIFY_CODE_PARAM_TEMPLATE, code));
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace();  //只打印不给mq抛出异常
         }
     }
 
@@ -56,12 +59,12 @@ public class SmsUtil {
 
         CommonRequest request = new CommonRequest();
         request.setSysMethod(MethodType.POST);
-        request.setSysDomain(prop.getDomain());
-        request.setSysVersion(prop.getVersion());
-        request.setSysAction(prop.getAction());
-        request.putQueryParameter("RegionId", prop.getRegionID());
+        request.setSysDomain(smsProperties.getDomain());
+        request.setSysVersion(smsProperties.getVersion());
+        request.setSysAction(smsProperties.getAction());
+        request.putQueryParameter("RegionId", smsProperties.getRegionID());
         request.putQueryParameter("PhoneNumbers", phone);
-        request.putQueryParameter("SignName", signName);
+      //  request.putQueryParameter("SignName", signName);
         request.putQueryParameter("TemplateCode", template);
         request.putQueryParameter("TemplateParam", param);
         try {

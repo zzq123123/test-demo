@@ -15,10 +15,9 @@ import javax.annotation.Resource;
  */
 public class T1 {
     @Resource
-   static   ElasticsearchTemplate template;
+    static ElasticsearchTemplate template;
+
     public static void main(String[] args) {
         template.createIndex(Item.class);
     }
-
-
 }

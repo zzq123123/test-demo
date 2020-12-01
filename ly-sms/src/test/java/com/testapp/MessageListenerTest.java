@@ -1,19 +1,14 @@
 package com.testapp;
-
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.amqp.core.AmqpTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import javax.annotation.Resource;
 import java.util.HashMap;
-
 import static com.leyou.common.constants.MQConstants.ExchangeConstants.SMS_EXCHANGE_NAME;
 import static com.leyou.common.constants.MQConstants.RoutingKeyConstants.VERIFY_CODE_KEY;
-
 /**
  * Package: com.testapp
  * Description：
