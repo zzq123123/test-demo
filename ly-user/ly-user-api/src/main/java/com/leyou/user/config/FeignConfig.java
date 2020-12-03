@@ -17,9 +17,9 @@ import org.springframework.context.annotation.Configuration;
 @EnableFeignClients(basePackages = "com.leyou.user.client")
 @Configuration
 public class FeignConfig {
-    @Bean
+    /*@Bean
     public Logger.Level userFeignLogLevel(){
         return Logger.Level.BASIC;
 
-    }
+    }*/
 }

@@ -13,4 +13,6 @@ import java.util.Map;
  */
 public interface SkuService extends IService<Sku> {
     List<SkuDTO> querySkuBySpuId(Long id);
+
+    void deductStock(Map<Long, Integer> cartMap);
 }

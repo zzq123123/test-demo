@@ -25,8 +25,8 @@ spring:
       - name: RequestRateLimiter #请求数限流 名字不能随便写
         args:
           key-resolver: "#{@ipKeyResolver}" # 指定一个key生成器
-          redis-rate-limiter.replenishRate: 2 # 生成令牌的速率
-          redis-rate-limiter.burstCapacity: 2 # 桶的容量
+          redis-rate-limiter.replenishRate: 50 # 生成令牌的速率
+          redis-rate-limiter.burstCapacity: 50 # 桶的容量
       routes:
       - id: item-service # 商品微服务
         uri: lb://item-service  #去注册中心去找Ip 这个不是容器名字 这个是注册中心的模块名字

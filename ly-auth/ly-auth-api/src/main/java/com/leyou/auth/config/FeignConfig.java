@@ -16,8 +16,8 @@ import org.springframework.context.annotation.Configuration;
 @EnableFeignClients(basePackages = "com.leyou.auth.client")
 @Configuration
 public class FeignConfig { //类名相同 没事 只要限定名不同就好
-    @Bean
+   /* @Bean("userFeignLogLevell")
     public Logger.Level userFeignLogLevel(){
         return Logger.Level.BASIC;
-    }
+    }*/
 }

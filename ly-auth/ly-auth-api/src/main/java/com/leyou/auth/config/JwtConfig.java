@@ -20,7 +20,7 @@ import javax.annotation.Resource;
 @ConditionalOnProperty(prefix = "ly.auth" , name = {"clientId","secret"})
 public class JwtConfig {
     @Resource
-    AuthClient authClient;
+    AuthClient authClient;  //需要注入属性 依赖authclient
     @Bean
     public JwtUtils jwtUtils(ClientProperties prop) {
       /*  new Thread(() -> {

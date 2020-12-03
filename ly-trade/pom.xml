@@ -12,6 +12,25 @@
     <artifactId>ly-trade</artifactId>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.leyou</groupId>
+            <artifactId>ly-user-api</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <!--feign-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <!--item接口-->
+        <dependency>
+            <groupId>com.leyou</groupId>
+            <artifactId>ly-item-api</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
+
         <!--web依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -40,7 +59,16 @@
             <artifactId>ly-auth-api</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
+        <!-- mybatis-plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
 
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

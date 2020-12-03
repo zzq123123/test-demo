@@ -9,13 +9,17 @@ import com.leyou.item.service.SkuService;
 import com.leyou.item.service.SpecParamService;
 import com.leyou.item.service.SpuDetailService;
 import com.leyou.item.service.SpuService;
+import jdk.net.SocketFlow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("goods")
@@ -120,5 +124,16 @@ public class GoodsController {
     }
 
 
+/**
+ * 扣减库存
+ * @param cartMap 商品集合
+ */
 
+                                       //前端的字符转  自动绑定成对象map 对象
+@PutMapping("/stock/minus")
+    public ResponseEntity<Void> deductStock(@RequestBody Map<Long,Integer> cartMap) {
+    skuService.deductStock(cartMap);
+
+  return   ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+}
 }

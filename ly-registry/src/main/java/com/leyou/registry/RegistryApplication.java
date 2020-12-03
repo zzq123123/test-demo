@@ -1,13 +1,16 @@
-package com.leyou;
+package com.leyou.registry;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
+/**
+ * @author 虎哥
+ */
 @SpringBootApplication
 @EnableEurekaServer
-public class LyRegistry {
+public class RegistryApplication {
     public static void main(String[] args) {
-        SpringApplication.run(LyRegistry.class, args);
+        SpringApplication.run(RegistryApplication.class, args);
     }
 }
