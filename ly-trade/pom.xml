@@ -12,7 +12,19 @@
     <artifactId>ly-trade</artifactId>
 
     <dependencies>
-
+        <dependency>
+            <groupId>com.github.wxpay</groupId>
+            <artifactId>wxpay-sdk</artifactId>
+            <version>3.0.9</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-alibaba-seata</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-all</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.leyou</groupId>
             <artifactId>ly-user-api</artifactId>

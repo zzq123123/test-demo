@@ -20,6 +20,10 @@ spring:
       retry:
         enabled: true #开启失败重试功能
 
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: test_tx_group # 定义事务组的名称
 eureka:
   client:
     service-url:

@@ -2,6 +2,7 @@ package com.leyou.trade.service.impl;
 
 import com.leyou.auth.dto.UserDetails;
 import com.leyou.auth.local.UserContext;
+import com.leyou.common.exception.LyException;
 import com.leyou.trade.entity.CartItem;
 import com.leyou.trade.repository.CartRepositry;
 import com.leyou.trade.service.CartService;
@@ -41,6 +42,7 @@ public class CartServiceImpl implements CartService {
         Long userId = user.getId();
         cartItem =   handleUpdateItem(cartItem, userId);
         cartRepositry.save(cartItem);  //全覆盖
+
     }
 
     private CartItem handleUpdateItem(CartItem cartItem, Long userId) {

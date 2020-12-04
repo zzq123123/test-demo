@@ -17,6 +17,7 @@
         <module>ly-item-service</module>
     </modules>
     <dependencies>
+
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>

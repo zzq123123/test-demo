@@ -15,5 +15,6 @@ import javax.validation.Valid;
 public interface OrderService extends IService<Order> {
 
     Long createOrder(@Valid OrderFormDTO orderDTO);
-    
+
+    String getPayUrl(Long orderId);
 }

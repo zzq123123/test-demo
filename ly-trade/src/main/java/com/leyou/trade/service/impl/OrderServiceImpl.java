@@ -12,9 +12,11 @@ import com.leyou.trade.entity.OrderDetail;
 import com.leyou.trade.entity.OrderLogistics;
 import com.leyou.trade.entity.enums.OrderStatus;
 import com.leyou.trade.service.OrderService;
+import com.leyou.trade.utils.PayHelper;
 import com.leyou.user.client.UserClient;
 import com.leyou.user.dto.AddressDTO;
 import feign.FeignException;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +36,8 @@ import java.util.Map;
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements OrderService {
  @Resource
  private OrderDetailServiceImpl orderDetailServiceImpl;   //动态代理
-
+ @Resource
+ PayHelper payHelper;
 
  @Resource
  private ItemClient itemClient;
@@ -44,7 +47,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 @Autowired
 OrderLogisticsServiceImpl  logisticsService;
  @Override
- @Transactional
+ @GlobalTransactional
  public Long createOrder(OrderFormDTO orderDTO) {
   //批量新增用list就好 批量修改 需要复杂 有jdbc 和mp两种
   //写order
@@ -119,13 +122,37 @@ OrderLogisticsServiceImpl  logisticsService;
 
 
   try {
-   itemClient.deductStock(carts);
+   itemClient.deductStock(carts);  //只有一个远程调用 放在最后 你要放在第一个 那么会出现其他微服务事务提交了 你下面本微服务报错和其他微服务没关系的(在不引入seeate包的时候是这样的)
   } catch (FeignException e) {
    throw new LyException(e.status(),e.contentUTF8());
   }
 
-
+//清空前台购物车 前台购物车里的商品在 local storage 怎么才能删除呢>
   return order.getOrderId();
  }
 
+ @Override
+ public String getPayUrl(Long orderId) {
+  // 根据id查询订单
+  Order order = this.getById(orderId);
+  //判断是否存在
+  if (order == null) {
+   throw new LyException(400, "订单编号错误，订单不存在！");
+  }
+  // 判断订单状态是否是未付款
+  if (order.getStatus() != OrderStatus.INIT) {
+   // 订单已经关闭或者已经支付，无需再次获取支付链接
+   throw new LyException(400, "订单已经支付或者关闭！");
+  }
+  // TODO 尝试读取redis中的支付url加上缓存 用模块名 加上方法名 以及参数名为key url为 v存起来 删除时最后删 添加是最后加 修改时最后修改
+  // 获取订单金额
+  Long actualFee = order.getActualFee();
+
+  // 统一下单，获取支付链接
+  String url = payHelper.unifiedOrder(orderId, actualFee);  //如果有异常 抛给jvm去打印 检查是异常 是经常发生的非逻辑错误可以解决如果你解决不掉就转成逻辑异常 抛给jvm得到异常消息
+
+  // TODO 把支付的url缓存在redis中，2小时有效期
+
+  return url;
+ }
 }
