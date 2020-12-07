@@ -42,4 +42,6 @@ ly:
       - /info/me
     excludePathPatterns:
       - /address/hello2
+      - /order
+      - /address/{^\d+$}
     enable: true

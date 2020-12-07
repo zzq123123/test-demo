@@ -1,17 +1,9 @@
 package com.leyou.trade.entity.enums;
 
-import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.fasterxml.jackson.annotation.JsonValue;
-import lombok.Data;
-
 /**
- * Package: com.leyou.trade.entity
- * Description：
- * Author: wude
- * Date:  2020-12-02 13:51
- * Modified By:
+ * @author 虎哥
  */
- public enum OrderStatus  {
+public enum OrderStatus {
     INIT(1, "初始化，未付款"),
     PAY_UP(2, "已付款，未发货"),
     DELIVERED(3, "已发货，未确认"),
@@ -20,27 +12,19 @@ import lombok.Data;
     RATED(6, "已评价，交易结束")
     ;
 
-    @EnumValue
-    @JsonValue
-    private final Integer value;
+    private Integer value;
+    private String msg;
 
-    private final String msg;
-
-
-   private OrderStatus(Integer value, String msg) {
-
-
-       this.value = value;
-
-
-       this.msg = msg;
-   }
-
-    public Integer getValue() {
-        return value;
+    OrderStatus(Integer value, String msg) {
+        this.value = value;
+        this.msg = msg;
     }
 
-    public String getMsg() {
+    public Integer getValue(){
+        return this.value;
+    }
+
+    public String getMsg(){
         return msg;
     }
 
@@ -48,5 +32,4 @@ import lombok.Data;
     public String toString() {
         return String.valueOf(value);
     }
-//   重写Enum里的toString
 }

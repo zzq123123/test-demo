@@ -14,11 +14,12 @@ import org.springframework.context.annotation.Configuration;
  * Modified By:
  */
 
-@EnableFeignClients(basePackages = "com.leyou.user.client")
+
 @Configuration
+@EnableFeignClients("com.leyou.user.client")
 public class FeignConfig {
-    /*@Bean
-    public Logger.Level userFeignLogLevel(){
+ /*   @Bean
+    public Logger.Level userFeignLogLevelUsr(){
         return Logger.Level.BASIC;
 
     }*/

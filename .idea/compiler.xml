@@ -24,6 +24,7 @@
         <module name="ly-user-pojo" />
         <module name="ly-user-service" />
         <module name="lypage" />
+        <module name="redisdemo" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

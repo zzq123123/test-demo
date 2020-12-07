@@ -5,6 +5,7 @@ import com.leyou.trade.dto.OrderFormDTO;
 import com.leyou.trade.entity.Order;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 /**
  * (Order)表服务接口
@@ -17,4 +18,10 @@ public interface OrderService extends IService<Order> {
     Long createOrder(@Valid OrderFormDTO orderDTO);
 
     String getPayUrl(Long orderId);
+
+    void handleNotify(Map<String, String> data);
+
+    Integer queryOrderState(Long orderId);
+
+    void evictOrderIfNecessary(Long orderId);
 }

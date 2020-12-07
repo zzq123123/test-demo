@@ -29,6 +29,5 @@ public class OrderDTO extends BaseDTO {
 
     public OrderDTO(Order entity) {
         super(entity);
-        this.status = entity.getStatus().getValue();
     }
 }

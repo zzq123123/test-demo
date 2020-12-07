@@ -35,7 +35,4 @@ public interface UserClient {
 
     @GetMapping("/address/{id}")
     public AddressDTO queryAddressById(@PathVariable("id") Long id);
-
-        
-
 }

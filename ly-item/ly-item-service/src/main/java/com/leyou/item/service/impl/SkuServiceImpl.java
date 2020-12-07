@@ -18,7 +18,7 @@ import java.util.Map;
  */
 @Service
 public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements SkuService {
-
+    private static final String ADD_STOCK_STATEMENT = "com.leyou.item.mapper.SkuMapper.addStock";
 
     private static final String DEDUCT_STOCK_STATEMENT = "com.leyou.item.mapper.SkuMapper.deductStock";
     @Override
@@ -64,5 +64,22 @@ public class SkuServiceImpl extends ServiceImpl<SkuMapper, Sku> implements SkuSe
             sqlSession.flushStatements();
         });
 
+    }
+
+    //销量和库存就是一对好兄弟  有异常直接抛出把 加了乐观锁解决了幂等性问题
+    @Override
+    @Transactional
+    public void addStock(Map<Long, Integer> cartMap) {
+        this.executeBatch(sqlSession ->
+                {
+                    for (Map.Entry<Long, Integer> entry : cartMap.entrySet()) {
+                        Map<String, Object> param = new HashMap<>();
+                        param.put("id", entry.getKey());
+                        param.put("num", entry.getValue());
+                        sqlSession.update(ADD_STOCK_STATEMENT, param);
+                    }
+                    sqlSession.flushStatements();
+                }
+        );
     }
 }

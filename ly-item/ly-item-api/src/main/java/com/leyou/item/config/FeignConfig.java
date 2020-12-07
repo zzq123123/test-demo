@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableFeignClients(basePackages = "com.leyou.item.client" )
 public class FeignConfig {
-    @Bean
-    public Logger.Level itemFeignLogLevel(){
+    /*@Bean
+    public Logger.Level itemFeignLogLevelItem(){
         return Logger.Level.BASIC;
-    }
+    }*/
 }

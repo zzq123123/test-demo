@@ -2,6 +2,7 @@ package com.leyou.trade.web;
 import com.leyou.trade.dto.OrderDTO;
 import com.leyou.trade.dto.OrderFormDTO;
 import com.leyou.trade.service.OrderService;
+import org.apache.http.protocol.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +35,14 @@ public class OrderController {
     @GetMapping("{id}")
     public ResponseEntity<OrderDTO> queryOrderById(@PathVariable(value = "id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(new OrderDTO(orderService.getById(id)));//有一个枚举属性 没有绑定 手动绑定好
-
     }
-
-
+    /**
+     * 查询订单支付状态
+     * @param orderId 订单id
+     * @return 状态值
+     */
+    @GetMapping("/state/{id}")
+    public ResponseEntity<Integer> queryOrderState(@PathVariable("id") Long orderId) {  //传来的是订单的id
+        return ResponseEntity.status(HttpStatus.OK).body(orderService.queryOrderState(orderId));
+    }
 }

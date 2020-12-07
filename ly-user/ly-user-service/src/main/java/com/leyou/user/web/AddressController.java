@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 用户地址管理
  */
 @RestController
-@RequestMapping("address")
+@RequestMapping("/address")
 public class AddressController {
 
     @GetMapping("hello")
@@ -32,7 +32,7 @@ public class AddressController {
      * @return 地址信息
      */
 
-    @GetMapping("{/id}")
+    @GetMapping("{id}")
     public ResponseEntity<AddressDTO> QueryAddressById(@PathVariable("id")Long id){
 
         AddressDTO address = new AddressDTO();

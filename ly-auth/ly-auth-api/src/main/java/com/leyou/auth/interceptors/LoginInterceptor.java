@@ -57,11 +57,7 @@ import static com.leyou.auth.constants.JwtConstants.COOKIE_NAME;
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         //view 渲染完毕数据之后
-
         //移除用户
         UserContext.removeUser();
-
-
-
     }
 }

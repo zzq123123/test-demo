@@ -1,6 +1,4 @@
 package com.leyou.item.web;
-
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.leyou.common.dto.PageDTO;
 import com.leyou.item.dto.*;
 import com.leyou.item.entity.Sku;
@@ -9,18 +7,14 @@ import com.leyou.item.service.SkuService;
 import com.leyou.item.service.SpecParamService;
 import com.leyou.item.service.SpuDetailService;
 import com.leyou.item.service.SpuService;
-import jdk.net.SocketFlow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
-
 @RestController
 @RequestMapping("goods")
 public class GoodsController {
@@ -33,8 +27,6 @@ public class GoodsController {
         this.spuService = SpuService;
         this.detailService = detailService;
         this.skuService = skuService;
-
-
     }
 
 @Autowired
@@ -135,5 +127,16 @@ public class GoodsController {
     skuService.deductStock(cartMap);
 
   return   ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
 }
+    /**
+     * 加库存
+     * @param cartMap 商品id及数量的map
+     */
+    @PutMapping("/stock/plus")
+    public ResponseEntity<Void> addStock (@RequestBody Map<Long, Integer> cartMap){
+        skuService.addStock(cartMap);
+   return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); // 查询是200  删改204没内容 新增是201
+    }
+
 }

@@ -17,7 +17,7 @@ import java.util.Date;
  * @author makejava
  * @since 2020-12-02 14:01:54
  */
-@SuppressWarnings("serial")
+
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("tb_order_detail")
@@ -56,7 +56,6 @@ public class OrderDetail  extends BaseEntity {
     public Long getOrderId() {
         return orderId;
     }
-
     public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
@@ -124,11 +123,4 @@ public class OrderDetail  extends BaseEntity {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
-
-    /**
-     * 获取主键值
-     *
-     * @return 主键值
-     */
-
 }
