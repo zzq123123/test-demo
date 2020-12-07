@@ -1,11 +1,13 @@
 package com.leyou.trade.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.leyou.common.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.apache.ibatis.type.JdbcType;
 
 import java.util.Date;
 
@@ -58,6 +60,7 @@ public class Order extends BaseEntity {
     /**
      * 交易关闭时间
      */
+    @TableField(value = "close_time", jdbcType= JdbcType.TIMESTAMP)
     private Date closeTime;
     /**
      * 评价时间

@@ -1,5 +1,4 @@
 package com.leyou.trade.service.impl;
-
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.leyou.auth.local.UserContext;
 import com.leyou.common.exception.LyException;
@@ -24,9 +23,7 @@ import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.annotation.Resource;
-import javax.annotation.Resources;
 import java.util.*;
 
 import static com.leyou.common.constants.MQConstants.ExchangeConstants.ORDER_EXCHANGE_NAME;
@@ -258,22 +255,28 @@ OrderLogisticsServiceImpl  logisticsService;
         if (!order.getStatus().equals(OrderStatus.INIT.getValue())) {
             return;
         }
-        //如果未支付 需要关闭订单
-/*
+        // 3.订单未支付，需要关闭订单
+        // update tb_order set status = 5, close_time = NOW() where id = x AND status = 1
         boolean success = update().set("status", OrderStatus.CLOSED.getValue())
                 .set("close_time", new Date())
                 .eq("order_id", orderId)
-                .eq("status", OrderStatus.INIT.getValue()).update();
-*/
-        HashMap<String , Object> updateOrdermap = new HashMap<>(4);
+                .eq("status", OrderStatus.INIT.getValue())
+                .update();
+       /* HashMap<String , Object> updateOrdermap = new HashMap<>(4);
 //tb_order set status = #{statusp}, close_time = #{closeTimep} where id = #{orderIdp} AND status = #{statusi}
         updateOrdermap.put("statusp",   OrderStatus.CLOSED.getValue());
         updateOrdermap.put("closeTimep",   new Date());
         updateOrdermap.put("orderIdp",   orderId);
         updateOrdermap.put("statusi",   OrderStatus.INIT.getValue());
+*/
+   /*     OrderDTOP orderDTOP = new OrderDTOP();
+        orderDTOP.setStatus(OrderStatus.CLOSED.getValue());
+        orderDTOP.setCloseTime(new Date());
+        orderDTOP.setStatusCAS( OrderStatus.INIT.getValue());
+        orderDTOP.setOrderId(orderId);
 
-        Integer ints = this.getBaseMapper().updateOrder(updateOrdermap);
-        if (ints<1) {
+        Integer ints = this.getBaseMapper().updateOrder(orderDTOP);*/
+        if (success == false) {
             // 更新失败，订单状态已经改变，无需处理
             return;
 
@@ -291,11 +294,9 @@ OrderLogisticsServiceImpl  logisticsService;
         //得到其中的商品和数量信息
 
         for (OrderDetail detail : details) {
-            skuMap.put(detail.getId(), detail.getNum());
+            skuMap.put(detail.getSkuId(), detail.getNum());
 
         }
-
-
         itemClient.addStock(skuMap);
     }
 }
