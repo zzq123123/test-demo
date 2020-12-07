@@ -1,13 +1,10 @@
 package com.leyou.trade.config;
-        import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
-        import com.zaxxer.hikari.HikariDataSource;
+         import com.zaxxer.hikari.HikariDataSource;
         import io.seata.rm.datasource.DataSourceProxy;
-        import org.apache.ibatis.session.SqlSessionFactory;
-        import org.springframework.beans.factory.annotation.Value;
+         import org.springframework.beans.factory.annotation.Value;
         import org.springframework.context.annotation.Bean;
         import org.springframework.context.annotation.Configuration;
         import org.springframework.context.annotation.Primary;
-        import sun.security.krb5.Config;
 
         import javax.sql.DataSource;
 @Configuration
