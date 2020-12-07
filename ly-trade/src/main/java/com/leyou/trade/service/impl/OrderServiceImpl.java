@@ -55,7 +55,8 @@ OrderLogisticsServiceImpl  logisticsService;
     @Autowired
     AmqpTemplate amqpTemplate;
 
-
+    @Autowired
+    CartServiceImpl cartService;
     @Resource
     OrderDetailService orderDetail;
 
@@ -143,8 +144,11 @@ OrderLogisticsServiceImpl  logisticsService;
 
      //发送id 到 普通交换机
 
-//清空前台购物车 前台购物车里的商品在 local storage 怎么才能删除呢>
+//清空前台购物车 前台购物车里的商品在 local storage 怎么才能删除呢>  前台在发送pst list就清楚了
+     /*下单完成删除购物车里的detail*/
 
+     String[] idArr = (String[]) idList.stream().map(i -> Long.toString(i)).toArray();
+     cartService.deleteCarts(idArr);
   return order.getOrderId();
  }
 
@@ -221,8 +225,6 @@ OrderLogisticsServiceImpl  logisticsService;
         //修改订单状态 更新状态和支付时间两个字段  注意乐观锁保证幂等性
         this.update()
                 .set("status", OrderStatus.PAY_UP.getValue()).set("pay_time", new Date())
-
-
                 .eq("order_id", orderId).eq("status", OrderStatus.INIT.getValue()
         )
         ;

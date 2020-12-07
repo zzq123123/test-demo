@@ -92,7 +92,7 @@ public ResponseEntity<Void> deleteCart(
 
 
 /**
- * 批量添加购物车
+ * 批量添加购物车  合并购物车
  *
  * @return 无
  */

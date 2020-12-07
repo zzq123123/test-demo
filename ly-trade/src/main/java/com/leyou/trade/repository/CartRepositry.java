@@ -14,5 +14,6 @@ import java.util.List;
  */
 public interface CartRepositry extends MongoRepository<CartItem,String > {
 
-    List<CartItem> findByUserId(Long userId);
+     List<CartItem> findByUserId(Long userId);
+
 }

@@ -6,6 +6,9 @@ import com.leyou.common.exception.LyException;
 import com.leyou.trade.entity.CartItem;
 import com.leyou.trade.repository.CartRepositry;
 import com.leyou.trade.service.CartService;
+import com.leyou.trade.utils.CollectionNameBuilder;
+import com.mongodb.client.result.DeleteResult;
+import com.netflix.discovery.converters.Auto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -14,6 +17,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +37,8 @@ public class CartServiceImpl implements CartService {
     MongoTemplate mongoTemplate;
     @Autowired
     CartRepositry cartRepositry;
-
+    @Autowired
+    CollectionNameBuilder collectionNameBuilder;
     @Override
     public void saveCartItem(CartItem cartItem) {
         //获取用户信息
@@ -104,13 +109,28 @@ public class CartServiceImpl implements CartService {
 
         }).collect(Collectors.toList());
 
-
-
-
         //不管存不存在数据库   现在的到的对象要么是丰满的  要么是修改数据后丰满的 直接保存就好
 
 
         cartRepositry.saveAll(list);
+    }
+
+    @Override
+    public void deleteCarts(String[] ids) {
+        for (String id : ids) {
+            createId(Long.valueOf(id));
+        }
+
+        String[] objects = (String[]) Arrays.stream(ids).map(Long::valueOf).map(this::createId).toArray();
+        Criteria criteria = Criteria.where("skuId").in(ids);
+        Query  query = new Query(criteria);
+        DeleteResult result = mongoTemplate.remove(query, CartItem.class,collectionNameBuilder.build());
+
+        int deleteNum=(int) result.getDeletedCount();
+
+
+        System.out.println("========================================66666666666661231231266666666632132166666666666666666666666666"+deleteNum);
+        return;
 
     }
 }
