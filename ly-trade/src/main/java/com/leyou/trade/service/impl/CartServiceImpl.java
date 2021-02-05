@@ -17,6 +17,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import javax.annotation.Resources;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -37,7 +39,7 @@ public class CartServiceImpl implements CartService {
     MongoTemplate mongoTemplate;
     @Autowired
     CartRepositry cartRepositry;
-    @Autowired
+    @Resource
     CollectionNameBuilder collectionNameBuilder;
     @Override
     public void saveCartItem(CartItem cartItem) {
@@ -116,20 +118,21 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void deleteCarts(String[] ids) {
-        for (String id : ids) {
+    public void deleteCarts(  List<Long> ids) {
+     /*   for (String id : ids) {
             createId(Long.valueOf(id));
-        }
+        }*/
 
-        String[] objects = (String[]) Arrays.stream(ids).map(Long::valueOf).map(this::createId).toArray();
-        Criteria criteria = Criteria.where("skuId").in(ids);
+        List<String> dubbleIdsList =ids.stream().map(this::createId).collect(Collectors.toList());
+        Criteria criteria = Criteria.where("_id").in(dubbleIdsList);
         Query  query = new Query(criteria);
-        DeleteResult result = mongoTemplate.remove(query, CartItem.class,collectionNameBuilder.build());
+        String documentName = collectionNameBuilder.build();
+        DeleteResult result = mongoTemplate.remove(query, CartItem.class,documentName);
 
         int deleteNum=(int) result.getDeletedCount();
 
 
-        System.out.println("========================================66666666666661231231266666666632132166666666666666666666666666"+deleteNum);
+        System.out.println("========================================66666666666661231231266666666632132166666666666666666666666666"+deleteNum+"==="+documentName);
         return;
 
     }

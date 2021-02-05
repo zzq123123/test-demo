@@ -24,4 +24,6 @@ public interface OrderService extends IService<Order> {
     Integer queryOrderState(Long orderId);
 
     void evictOrderIfNecessary(Long orderId);
+
+    Integer activeQuery2Wx(Long id);
 }

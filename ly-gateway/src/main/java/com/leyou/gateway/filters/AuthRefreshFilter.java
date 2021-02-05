@@ -1,10 +1,7 @@
 package com.leyou.gateway.filters;
-
 import com.leyou.auth.constants.JwtConstants;
 import com.leyou.auth.dto.Payload;
 import com.leyou.auth.utils.JwtUtils;
-import com.leyou.common.utils.CookieUtils;
-import com.netflix.discovery.converters.Auto;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +16,19 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 
-
+import javax.servlet.*;
+import java.io.IOException;
 
 @Slf4j
 @Component
 @Order
 public class AuthRefreshFilter implements GlobalFilter {
+
     @Autowired
     JwtUtils jwtUtils;
-    @Override
 
-    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+    @Override
+    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain ) {
         //获取cookie
         ServerHttpRequest request = exchange.getRequest();
         MultiValueMap<String, HttpCookie> cookies = request.getCookies();

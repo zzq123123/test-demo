@@ -8,7 +8,6 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>ly-auth-pojo</artifactId>
     <dependencies>
     <!--jjwt工具  这里auth sercie引用了 所以存放的是auth sercie的和其他的能用到的代码 而auth service 不用 其他的模块要用的代码要放在 auth api里面 -->
@@ -44,10 +43,5 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-data-redis</artifactId>
     </dependency>
-
 </dependencies>
-
-
-
-
 </project>

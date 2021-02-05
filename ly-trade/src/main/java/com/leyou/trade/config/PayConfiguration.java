@@ -20,7 +20,7 @@ public class PayConfiguration {
     @Bean
     @ConfigurationProperties(prefix = "ly.pay.wx")
     public WXPayConfigImpl payConfig(){
-    return     new WXPayConfigImpl(); //new 对象 直接自动绑定
+    return  new WXPayConfigImpl();              //new 对象 直接自动绑定
     }
 
 

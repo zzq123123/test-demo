@@ -1,5 +1,4 @@
 package com.leyou.auth.service.impl;
-
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.common.utils.BinaryUtil;
 import com.aliyun.oss.model.MatchMode;
@@ -9,13 +8,9 @@ import com.leyou.auth.dto.AliOssSignatureDTO;
 import com.leyou.auth.service.AliAuthService;
 import com.leyou.common.exception.LyException;
 import lombok.extern.slf4j.Slf4j;
-import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * Package: com.leyou.auth.service.impl

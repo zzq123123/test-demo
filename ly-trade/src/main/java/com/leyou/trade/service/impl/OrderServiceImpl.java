@@ -25,7 +25,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.*;
-
 import static com.leyou.common.constants.MQConstants.ExchangeConstants.ORDER_EXCHANGE_NAME;
 import static com.leyou.common.constants.MQConstants.RoutingKeyConstants.EVICT_ORDER_KEY;
 import static com.leyou.trade.constants.PayConstants.ORDER_NO_KEY;
@@ -147,8 +146,10 @@ OrderLogisticsServiceImpl  logisticsService;
 //清空前台购物车 前台购物车里的商品在 local storage 怎么才能删除呢>  前台在发送pst list就清楚了
      /*下单完成删除购物车里的detail*/
 
-     String[] idArr = (String[]) idList.stream().map(i -> Long.toString(i)).toArray();
-     cartService.deleteCarts(idArr);
+/*
+     List<String> collect = idList.stream().map(i -> Long.toString(i)).collect(Collectors.toList());
+*/
+     cartService.deleteCarts(idList);
   return order.getOrderId();
  }
 
@@ -172,11 +173,8 @@ OrderLogisticsServiceImpl  logisticsService;
   // 统一下单，获取支付链接
      String url = payHelper.unifiedOrder(orderId, 1L);
              // TODO 把支付的url缓存在redis中，2小时有效期
-
      return url;
  }
-
-
     /*
     *
     * - 业务标示判断
@@ -242,6 +240,8 @@ OrderLogisticsServiceImpl  logisticsService;
         return order.getStatus();
     }
 
+
+
     @Override
     @Transactional
     public void evictOrderIfNecessary(Long orderId) {
@@ -301,4 +301,11 @@ OrderLogisticsServiceImpl  logisticsService;
         }
         itemClient.addStock(skuMap);
     }
+
+    @Override
+    public Integer activeQuery2Wx(Long id) {
+
+        return null;
+    }
+
 }

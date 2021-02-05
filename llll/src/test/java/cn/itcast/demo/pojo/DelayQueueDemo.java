@@ -43,4 +43,10 @@ public class DelayQueueDemo {
         log.info("主函数任务结束。。。");
         Thread.sleep(1000000);
     }
+    @Test
+    public void m(){
+
+
+
+    }
 }

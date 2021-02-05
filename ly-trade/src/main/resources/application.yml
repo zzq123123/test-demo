@@ -1,0 +1,62 @@
+server:
+  port: 8087
+spring:
+  application:
+    name: trade-service
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://ly-mysql:3306/ly-dev?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false
+    username: root
+    password: root
+  data:
+    mongodb:
+      uri: mongodb://leyou:123@ly-mongo/carts
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: test_tx_group # 定义事务组的名称
+  rabbitmq:
+    virtual-host: /leyou
+    host: ly-mq
+    username: guest
+    password: guest
+    template:
+      retry:
+        enabled: true
+        initial-interval: 10000ms
+        max-interval: 80000ms
+        multiplier: 2
+    publisher-confirms: true
+mybatis-plus:
+  type-aliases-package: com.leyou.trade.entity
+  global-config:
+    db-config:
+      id-type: INPUT # 此处的id类型选择INPUT，代表自定义
+      insert-strategy: not_null
+      update-strategy: not_null
+eureka:
+  client:
+    service-url:
+      defaultZone: http://ly-registry:10086/eureka
+logging:
+  level:
+    com.leyou: debug
+ly:
+  auth:
+    clientId: trade-service #客户端id
+    secret: 1234
+    includePathPatterns:
+    - /**
+    excludePathPatterns:
+    - /pay/wx/notify
+    enable: true
+  mongo:
+    collectionNamePrefix: "cart_user_"
+  pay:
+    wx:
+      appID: wx8397f8696b538317
+      mchID: 1473426802
+      key: T6m9iK73b0kn9g5v426MKfHQH7X8rKwb
+      notifyUrl: http://gonfic111.cn.utools.club/trade/pay/wx/notify      #http://gonfic111.cn.utools.club
+      spbillCreateIp: 123.12.12.123
+

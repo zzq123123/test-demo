@@ -1,5 +1,2 @@
-spring:
-  redis:
-host: ly-redis
-          server:
-            port: 9000
+server:
+  port: 9000

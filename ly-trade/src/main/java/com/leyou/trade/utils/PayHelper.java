@@ -50,16 +50,11 @@ public class PayHelper {
             String url = resp.get(PayConstants.PAY_URL_KEY);
             if (StringUtils.isBlank(url)) {
                 throw new RuntimeException("支付链接为空");  //逻辑错误 不需要解决 直接报错
-
-
             }
-
             return url;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-
     }
     public void checkResultCode(Map<String, String> resp) {
         String resultCode = resp.get(PayConstants.RESULT_CODE_KEY);
@@ -85,4 +80,7 @@ public class PayHelper {
             throw new RuntimeException("签名有误！");
         }
     }
+
+
+
 }

@@ -43,7 +43,7 @@ public interface CartService  {
      * 批量删除购物车指定商品
      * @param ids 商品id
      */
-    void deleteCarts(String[] ids);
+    void deleteCarts(  List<Long> ids);
     /**
      * 批量新增购物车商品
      * @param cartItemList 购物车商品列表
