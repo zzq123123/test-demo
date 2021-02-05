@@ -37,4 +37,9 @@ public class CeshiController {
         System.out.println("你好");
         throw new RuntimeException("aa" );
     }
+
+    public void m3(){
+        System.out.println("你好");
+        throw new RuntimeException("aa" );
+    }
 }
